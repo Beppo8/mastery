@@ -11,9 +11,7 @@ defmodule Mastery.Core.Response do
       to: question.asked,
       email: email,
       answer: answer,
-      correct: template.checket.(question.susbstitutions, answer),
+      correct: template.checker.(question.substitutions, answer)
     }
   end
-
-
 end
