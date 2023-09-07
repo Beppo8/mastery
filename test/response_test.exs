@@ -35,6 +35,4 @@ defmodule ResponseTest do
   defp wrong(context) do
     {:ok, Map.put(context, :wrong, response("2"))}
   end
-
-
 end
