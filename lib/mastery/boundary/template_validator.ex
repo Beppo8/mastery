@@ -51,6 +51,6 @@ defmodule Mastery.Boundary.TemplateValidator do
 
   def validate_generator(_generator), do: {:error, "must be a string to list or function pair"}
 
-  def validate_checker(checker) when is_function(checker, 2) do: :ok
+  def validate_checker(checker) when is_function(checker, 2), do: :ok
   def validate_checker(_checker), do: {:error, "must be an arity 2 function"}
 end
