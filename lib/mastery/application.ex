@@ -8,14 +8,10 @@ defmodule Mastery.Application do
   @impl true
   def start(_type, _args) do
     children = [
-        { Mastery.Boundary.QuizManager,
-          [name: Mastery.Boundary.QuizManager]},
-        {Registry,
-          [name: Mastery.Registry.QuizSession, keys: :unique]},
-        { Mastery.Boundary.Proctor,
-          [name: Mastery.Boundary.Proctor]},
-        {DynamicSupervisor,
-          [name: Mastery.Supervisor.QuizSession, strategy: :one_for_one]}
+      {Mastery.Boundary.QuizManager, [name: Mastery.Boundary.QuizManager]},
+      {Registry, [name: Mastery.Registry.QuizSession, keys: :unique]},
+      {Mastery.Boundary.Proctor, [name: Mastery.Boundary.Proctor]},
+      {DynamicSupervisor, [name: Mastery.Supervisor.QuizSession, strategy: :one_for_one]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

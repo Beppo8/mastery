@@ -32,6 +32,7 @@ defmodule Mastery.Boundary.TemplateValidator do
     |> case do
       [] ->
         :ok
+
       errors ->
         {:errors, errors}
     end
@@ -40,12 +41,12 @@ defmodule Mastery.Boundary.TemplateValidator do
   def validate_generators(_generators), do: {:error, "must be a map"}
 
   def valdiate_generator({name, generator})
-  when is_atom(name) and is_list(generator) do
+      when is_atom(name) and is_list(generator) do
     check(generator != [], {:error, "can't be empty"})
   end
 
   def validate_generator({name, generator})
-  when is_atom(name) and is_function(generator, 0) do
+      when is_atom(name) and is_function(generator, 0) do
     :ok
   end
 

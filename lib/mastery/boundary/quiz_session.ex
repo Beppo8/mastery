@@ -3,11 +3,11 @@ defmodule Mastery.Boundary.QuizSession do
   use GenServer
 
   def child_spec({quiz, email}) do
-   %{
-    id: {__MODULE__, {quiz.title, email}},
-    start: {__MODULE__, :start_link, [{quiz, email}]},
-    restart: :temporary
-   }
+    %{
+      id: {__MODULE__, {quiz.title, email}},
+      start: {__MODULE__, :start_link, [{quiz, email}]},
+      restart: :temporary
+    }
   end
 
   def start_link({quiz, email}) do
@@ -75,9 +75,10 @@ defmodule Mastery.Boundary.QuizSession do
   end
 
   defp child_pid?({:undefined, pid, :worker, [__MODULE__]})
-  when is_pid(pid) do
+       when is_pid(pid) do
     true
   end
+
   defp child_pid?(_child), do: false
 
   defp active_sessions({:undefined, pid, :worker, [__MODULE__]}, title) do
