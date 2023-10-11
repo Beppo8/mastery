@@ -22,7 +22,7 @@ defmodule MasteryTest do
   end
 
   defp take_quiz(email) do
-    Mastery.take_quiz(Math.quiz.title, email)
+    Mastery.take_quiz(Math.quiz().title, email)
   end
 
   defp select_question(session) do
@@ -48,14 +48,14 @@ defmodule MasteryTest do
   setup do
     enable_persitence()
 
-    always_add_1_to_2 =
-      [
-        template_fields(generators: addition_generators([1], [2]))
-      ]
+    always_add_1_to_2 = [
+      template_fields(generators: addition_generators([1], [2]))
+    ]
 
-    assert "" != ExUnit.CaptureLog.capture_log(fn  ->
-      :ok = start_quiz(always_add_1_to_2)
-    end)
+    assert "" !=
+             ExUnit.CaptureLog.capture_log(fn ->
+               :ok = start_quiz(always_add_1_to_2)
+             end)
 
     :ok
   end

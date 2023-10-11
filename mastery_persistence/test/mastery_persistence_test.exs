@@ -21,20 +21,23 @@ defmodule MasteryPersistenceTest do
   test "responses are recorded", %{response: response} do
     assert Repo.aggregate(Response, :count, :id) == 0
     assert :ok = MasteryPersistence.record_response(response)
+
     assert Repo.all(Response)
            |> Enum.map(fn r -> r.email end) == [response.email]
   end
 
   test "a function can be run in the saving transaction", %{response: response} do
     assert response.asnwer ==
-           MasteryPersistence.record_response(response, fn r -> r.answer end)
+             MasteryPersistence.record_response(response, fn r -> r.answer end)
   end
 
   test "an error in the fucntion roll back the saeve", %{response: response} do
     assert Repo.aggregate(Response, :count, :id) == 0
-    assert_raise RuntimeError, fn  ->
+
+    assert_raise RuntimeError, fn ->
       MasteryPersistence.record_response(response, fn _r -> raise "oops" end)
     end
+
     assert Repo.aggregate(Response, :count, :id)
   end
 
@@ -44,11 +47,11 @@ defmodule MasteryPersistenceTest do
 
     response
     |> Map.put(:email, "other_#{response.email}")
-    |> MasteryPersistence.record_response
+    |> MasteryPersistence.record_response()
 
     assert MasteryPersistence.report(response.quiz_title) == %{
-      response.email => 2,
-      "other_#{response.email}" => 1
-    }
+             response.email => 2,
+             "other_#{response.email}" => 1
+           }
   end
 end
